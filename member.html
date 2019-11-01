@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>Member Page</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+       <div class="container">
+           <div class="row">
+               <div class="col-md-10" id="table">
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">PhoneNo</th>
+                        <th scope="col">ClubAdmin</th>
+                        <th scope="col">KYC verified</th>
+                        <th scope="col">Subscriber</th>
+                        <th scope="col">UserProfile</th>
+                        <th scope="col">WalletAmount</th>
+                        <th scope="col">OutstandingAmount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                    </tbody>
+                  </table>
+                  
+                 
+                  <style>
+                      #table {
+                          display:block;
+                          margin-top:10%;
+                          box-shadow: 3px solid gray;
+                      }
+                     #likes {
+                         display: flex;
+                         flex-direction: row;
+                         margin-left:20px;
+                     }
+                     #name{
+                         display: flex;
+                         flex-direction: column;
+                         margin-top:6%;
+                     }
+                     
+                  </style>
+                  <script>
+                      $(document).ready(function(){
+                          $.ajax({
+                              url:"https://newprod.zypher.co/clubAdmin/club/myMembers/?clubId=5d7b584ab4332d0011c289bb",
+                              type:"GET"
+                          })
+                          .then(res=>{
+                              console.log(res)
+                              res.members.map(member=>{
+                                let likedTags;
+                                
+                                member.userLikedTags.forEach(tags=>{
+                                   likedTags=tags
+                                })
+                                console.log(likedTags)
+                                $("tbody").append(
+                                    '<tr>'+
+                                    '<td>'+member.fullName+ '</td>'+
+                                    '<td> '+member.email +'</td>'+
+                                    '<td>'+member.phoneNumber+ '</td>'+
+                                    '<td>' +member.isClubAdmin+ '</td>'+
+                                    '<td>' +member.isKycVerified+ '</td>'+
+                                    '<td>' +member.isSubscriber+ '</td>'+
+                                     '<td><img src="'+member.userImageURL  +'"> </td>'+
+                                     '<td>' +member.walletAmount+ '</td>'+
+                                     '<td>' +member.outStandingAmount+ '</td>'+
+                                    '</tr>'
+
+                                )
+                                
+                                }) 
+                             
+                          })
+                      })
+                  </script>
+               </div>
+           </div>
+       </div>
+    </body>
+</html>

@@ -1,0 +1,176 @@
+<html>
+    <head>
+        <title>Order Page</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+     <div class="container">
+         <div class="row">
+             <div class="col-md-10" id="orders">
+
+             </div>
+         </div>
+     </div>
+       <style>
+             @keyframes fadeInRight {
+               0% {
+            opacity: 0;
+             transform: translateX(20px);
+              }
+           100% {
+          opacity: 1;
+           transform: translateX(0);
+          }         
+} 
+
+@keyframes fadeInLeft {
+               0% {
+            opacity: 0;
+             transform: translateX(-20px);
+              }
+           100% {
+          opacity: 1;
+           transform: translateX(0);
+          }
+} 
+           .display{
+               display: flex;
+               flex-direction: row;
+               width:80vw;
+               height:50vh;
+               align-content: center;
+               margin-right:auto;
+               margin-left:auto;
+               margin-bottom:5%;
+               box-shadow: 5px  5px 5px 5px gray;
+               border: 1px solid black;
+               padding:3px 2px;
+               height:30%;
+           }
+           .display h5{
+                text-align: center;
+                color:rgb(20, 17, 17);
+                background-color: rgb(160, 156, 156);
+                -webkit-animation-name: fadeInRight;
+                animation-name: fadeInRight;
+                animation-duration: 4s;
+                animation-fill-mode: both;
+           }
+           
+            #email{
+                margin-left:70px;
+                font-size: 1.2em;
+                
+            }
+           #uid{
+                width:80px;
+                height:80px;
+                border-radius:50%;
+                margin-left:3%;
+                box-shadow: 2px 1px 2px 1px rgb(8, 0, 0);
+                -webkit-animation-name: fadeInLeft;
+                animation-name: fadeInLeft;
+                animation-duration: 4s;
+                animation-fill-mode: both;
+           }
+           
+           
+           #pd{
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             align-items: center;
+           }
+           #od{
+            display: flex;
+             flex-direction: column;
+             margin-left:auto;
+             margin-right:auto;
+             font-size: 1.2em;
+           }
+           #book{
+            width:80px;
+            height:80px; 
+            margin-left:5%;
+            box-shadow: 2px 1px 2px 1px rgb(8, 0, 0);
+            margin-top:10px;
+            -webkit-animation-name: fadeInLeft;
+                animation-name: fadeInLeft;
+                animation-duration: 4s;
+                animation-fill-mode: both;
+
+           }
+           #phone {
+               font-size:1.2em;
+               
+
+              
+
+           }
+           #name{
+               font-size: 1.2em;
+               -webkit-animation-name: fadeInLeft;
+                animation-name: fadeInLeft;
+                animation-duration: 4s;
+                animation-fill-mode: both;
+           }
+       </style>
+     <script>
+      $(document).ready(function(){
+          $.ajax({
+              url:"https://newprod.zypher.co/clubAdmin/club/myOrders/?clubId=5d7b584ab4332d0011c289bb",
+              type:"GET",
+              
+          })
+          .then(res=>{
+              res.orders.map(order=>{
+                  const name=order.uid.fullName
+                  const email=order.uid.email
+                  const phoneno=order.uid.phoneNumber
+                  const image=order.uid.userImageURL
+                  const bookurl=order.bookToDeliver.book.imageURL
+                  const productName=order.bookToDeliver.book.productName
+
+                 
+                  console.log(order)
+                  $("#orders").append(
+                      '<div class="display">'+
+                        '<div id="pd">'+
+                    ' <h5>Person Details</h5>'+
+                       
+                      '<span id="name">'+ name +'</span>'+
+                      
+                       '<img src="'+ image +'" id="uid">'+
+                        
+                      '<span id="email"> <i class="fa fa-envelope-square fa-2x"></i> '+ email +'</span>'+
+                     
+                      '<span id="phone"><i class="fa fa-phone fa-2x"></i>'+ phoneno +'</span>'+
+                       '</div>'+
+                       '<div id="od">'+
+                        '<h5 id="details">Order Details </h5>'+
+
+                        '<span>'+ productName +'</span>'+
+                      
+                      '<img src="'+ bookurl +'" id="book">'+
+                       '</div>'+
+                      '</div>'
+
+                  )
+              })
+          })
+      })
+
+     </script>
+    </body>
+
+    </html>
